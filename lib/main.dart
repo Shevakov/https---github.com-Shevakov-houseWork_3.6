@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:carousel_slider/carousel_slider.dart';
 
 void main() {
   runApp(const MyApp());
@@ -33,14 +34,31 @@ class _MyHomePageState extends State<MyHomePage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(),
+      appBar: AppBar(
+        title: const Text(
+          'Flutter Demo Home Page',
+          textAlign: TextAlign.center,
+        ),
+      ),
       body: Center(
         child: Column(
           mainAxisSize: MainAxisSize.min,
           children: <Widget>[
-            SvgPicture.asset('assets/images/logo_ru.svg'),
-            SvgPicture.network(
-                'https://www.vectorlogo.zone/logos/flutterio/flutterio-icon.svg')
+            CarouselSlider(
+              options: CarouselOptions(height: 400.0),
+              items: [1, 2, 3, 4, 5].map((i) {
+                return Builder(
+                  builder: (BuildContext context) {
+                    return SizedBox(
+                      width: MediaQuery.of(context).size.width,
+                      child: SvgPicture.asset(
+                        'assets/images/logo_ru.svg',
+                      ),
+                    );
+                  },
+                );
+              }).toList(),
+            ),
           ],
         ),
       ),
